@@ -14,9 +14,9 @@ def check_iprange(iprange):
 
         if len(iprange) != 4:
             return False
-            
+
         for ip in iprange:
-            if not ip == '*':
+            if ip != '*':
                 if '-' in ip:
                     ip = ip.split('-')
 
@@ -24,18 +24,14 @@ def check_iprange(iprange):
                         return False
 
                     for i in ip:
-                        if not int(i) in range(0, 256):
+                        if int(i) not in range(0, 256):
                             return False
-                    
-                else:
-                    if not int(ip) >= 0 and not int(ip) < 255:
-                        return False
-            
+
+                elif int(ip) < 0 and int(ip) >= 255:
+                    return False
+
         return True
 
-    except IndexError:
-        return False
-
-    except ValueError:
+    except (IndexError, ValueError):
         return False
 

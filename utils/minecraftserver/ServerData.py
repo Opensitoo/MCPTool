@@ -54,15 +54,22 @@ def mcstatus(server):
                             ).replace("'", ''
                             ).replace('(00000000-0000-0000-0000-000000000000),', ''
                             ).replace('(00000000-0000-0000-0000-000000000000)', '')
-                            
+
             re.findall(r'[0-9a-z][0-9a-z][0-9a-z][0-9a-z][0-9a-z][0-9a-z][0-9a-z][0-9a-z]-[0-9a-z][0-9a-z][0-9a-z][0-9a-z]-[0-9a-z][0-9a-z][0-9a-z][0-9a-z]-[0-9a-z][0-9a-z][0-9a-z][0-9a-z]-[0-9a-z][0-9a-z][0-9a-z][0-9a-z][0-9a-z][0-9a-z][0-9a-z][0-9a-z][0-9a-z][0-9a-z][0-9a-z][0-9a-z]', players)
 
         else: 
             players = None
 
-        data = motd, version, protocol, connected_players, player_limit, players, clean_motd, clean_version
-        return data
-
+        return (
+            motd,
+            version,
+            protocol,
+            connected_players,
+            player_limit,
+            players,
+            clean_motd,
+            clean_version,
+        )
     except (OSError, socket.gaierror, socket.timeout, ValueError, IndexError):
         return None
 

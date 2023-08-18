@@ -13,8 +13,7 @@ def create_file(command):
     """
 
     date = datetime.now()
-    t = f'{str(date.day)}-{str(date.month)}-{str(date.year)}_{str(date.hour)}.{str(date.minute)}.{str(date.second)}'
+    t = f'{date.day}-{date.month}-{date.year}_{date.hour}.{date.minute}.{date.second}'
 
     check_folders('logs', f'logs/{command}')
-    file = f'logs/{command}/{command.capitalize()}_{t}.txt'
-    return file
+    return f'logs/{command}/{command.capitalize()}_{t}.txt'

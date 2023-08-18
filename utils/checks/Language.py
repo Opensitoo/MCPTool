@@ -11,7 +11,4 @@ def check_language(argument):
     :return: Boolean value that tells if the language argument is valid
     """
 
-    if argument in valid_languages:
-        return True
-
-    return False
+    return argument in valid_languages

@@ -206,12 +206,10 @@ def menu():
 
 
 if __name__ == '__main__':
-    subprocess.run(f'cls || clear', shell=True)
+    subprocess.run('cls || clear', shell=True)
     settings = sm.read('settings')
     print_banner(f'pickaxe{settings["TYPE_OF_BANNERS"]}')
-    dependencies = d.check_dependencies()
-
-    if dependencies:
+    if dependencies := d.check_dependencies():
         if os.name == 'nt':
             subprocess.run(f'title {language["script"]["TITLE"]}', shell=True)
 
@@ -234,6 +232,6 @@ if __name__ == '__main__':
         if settings['RICH_PRESENCE']:
             rich_presence = subprocess.Popen(f'{settings["PYTHON_COMMAND"]} utils/presence/RichPresence.py', stdout=subprocess.PIPE, shell=True)
 
-        subprocess.run(f'cls || clear', shell=True)
+        subprocess.run('cls || clear', shell=True)
         print_banner('first-time-main', message1, message2, message3, message4, message5, message6, message7)
         menu()

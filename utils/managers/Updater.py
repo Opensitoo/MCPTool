@@ -54,11 +54,7 @@ class Updater:
             last_version = versions[0]
             current_version = current_versions[0]
 
-            if int(last_version) != int(current_version):
-                return True
-
-            return False
-
+            return int(last_version) != int(current_version)
         except TypeError:
             return True
 

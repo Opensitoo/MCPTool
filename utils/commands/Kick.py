@@ -37,20 +37,19 @@ def kick_command(server, username, version, loop, proxy=None):
             while True:
                 time.sleep(4)
 
-                if proxy is not None:
+                if proxy is None:
+                    subprocess.run(f'{settings["NODE_COMMAND"]} utils/scripts/Kick.js {server[0]} {server[1]} {username} {version} {settings["LANGUAGE"]}', shell=True)
+
+                else:
                     proxy = proxy.split(':')
                     subprocess.run(f'{settings["NODE_COMMAND"]} utils/scripts/Kick.js {server[0]} {server[1]} {username} {version} {settings["LANGUAGE"]} {proxy[0]} {proxy[1]}', shell=True)
 
-                else:
-                    subprocess.run(f'{settings["NODE_COMMAND"]} utils/scripts/Kick.js {server[0]} {server[1]} {username} {version} {settings["LANGUAGE"]}', shell=True)
-        
-        else:
-            if proxy is not None:
-                proxy = proxy.split(':')
-                subprocess.run(f'{settings["NODE_COMMAND"]} utils/scripts/Kick.js {server[0]} {server[1]} {username} {version} {settings["LANGUAGE"]} {proxy[0]} {proxy[1]}', shell=True)
+        elif proxy is not None:
+            proxy = proxy.split(':')
+            subprocess.run(f'{settings["NODE_COMMAND"]} utils/scripts/Kick.js {server[0]} {server[1]} {username} {version} {settings["LANGUAGE"]} {proxy[0]} {proxy[1]}', shell=True)
 
-            else:
-                subprocess.run(f'{settings["NODE_COMMAND"]} utils/scripts/Kick.js {server[0]} {server[1]} {username} {version} {settings["LANGUAGE"]}', shell=True)
+        else:
+            subprocess.run(f'{settings["NODE_COMMAND"]} utils/scripts/Kick.js {server[0]} {server[1]} {username} {version} {settings["LANGUAGE"]}', shell=True)
 
     except KeyboardInterrupt:
         return

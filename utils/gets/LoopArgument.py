@@ -12,7 +12,4 @@ def get_loop_argument(argument):
     :return: Boolean value that checks if it is positive
     """
 
-    if argument == 'y' or argument == 'yes':
-        return True
-
-    return False
+    return argument in ['y', 'yes']

@@ -10,10 +10,6 @@ def check_port(port):
     """
 
     try:
-        if int(port) <= 65535:
-            return True
-
-        return False
-
+        return int(port) <= 65535
     except ValueError:
         return False

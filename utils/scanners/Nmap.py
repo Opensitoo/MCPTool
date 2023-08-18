@@ -36,8 +36,8 @@ def nmap(target, ports, file):
 
                 port = re.findall('\d{1,5}\/tcp open', line)  # Search for an open port in the line.
                 port = ' '.join(port)
-            
-                if len(port) == 0:  # If it doesn't find an open port, it tries to search for a filtered one.
+
+                if not port:
                     if settings['SHOW_NMAP_FILTERED_PORTS']:
                         port = re.findall('\d{1,5}\/tcp filtered', line)
                         port = ' '.join(port)
@@ -59,7 +59,7 @@ def nmap(target, ports, file):
                     ip_list.append(f'{current_ip}:{port}')
 
             return ip_list
-    
+
     except KeyboardInterrupt:
         try:
             os.remove(file)

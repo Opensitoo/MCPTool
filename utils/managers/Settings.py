@@ -11,14 +11,12 @@ class SettingsManager:
         """ Open the configuration file and return the data """
         
         with open(f'settings/{file}.json', 'r') as f:
-            settings = json.loads(f.read())
-            return settings
+            return json.loads(f.read())
 
     def read(self, file):
         """ Read the configuration and return it """
 
-        mcptool_config = self.open(file)
-        return mcptool_config
+        return self.open(file)
 
     def write(self, file, option, value):
         """ Overwrite the configuration """

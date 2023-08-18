@@ -33,8 +33,6 @@ def send_bot(server, protocol, proxy):
         else:
             result = subprocess.run(f'{settings["NODE_COMMAND"]} utils/scripts/Checker.js {server[0]} {server[1]} {username} {protocol} {settings["LANGUAGE"]}', stdout=subprocess.PIPE, encoding='utf-8')
 
-        output = result.stdout
-        return output
-
+        return result.stdout
     except KeyboardInterrupt:
         return None

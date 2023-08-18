@@ -28,18 +28,14 @@ def kickall_command(server, version, loop, proxy=None):
         if mcstatus(server) is None:
             paint(f'\n    {language["script"]["PREFIX"]}{language["commands"]["kickall"]["INVALID_SERVER"]}')
             return
-        
+
         srv = JavaServer.lookup(server)
         response = srv.status()
-        players = []
-
         if response.players.sample is None:
             paint(f'\n    {language["script"]["PREFIX"]}{language["commands"]["kickall"]["NO_PLAYERS"]}')
             return
 
-        for player in response.players.sample:
-            players.append(player.name)
-
+        players = [player.name for player in response.players.sample]
         paint(f'\n    {language["script"]["PREFIX"]}{language["commands"]["kickall"]["STARTING_THE_ATTACK"]}')
         loop = get_loop_argument(loop)
         server = server.split(':')
@@ -54,7 +50,7 @@ def kickall_command(server, version, loop, proxy=None):
 
                     else:
                         subprocess.run(f'{settings["NODE_COMMAND"]} utils/scripts/Kick.js {server[0]} {server[1]} {player} {version} {settings["LANGUAGE"]}', shell=True)
-            
+
         else:
             for player in players:
                 if proxy is not None:

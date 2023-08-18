@@ -11,7 +11,4 @@ def check_loop_argument(argument):
     :return: Boolean value that tells if the loop argument is valid
     """
 
-    if argument in valid_arguments:
-        return True
-
-    return False
+    return argument in valid_arguments

@@ -31,7 +31,7 @@ def search_command(data):
     logs = LogsManager('search', file)
 
     text = ' '.join(data)
-    data = text[7:] 
+    data = text[7:]
     data = data.split(' --- ')
     servers_found = 0
     timed_out_servers_found = 0
@@ -40,7 +40,7 @@ def search_command(data):
     try:
         search = shodan.Shodan(settings['SHODAN_TOKEN'])
         all_data = ''
-        
+
         for i in data:
             srvs_found = 0 
             paint(f'\n    {language["script"]["PREFIX"]}{language["commands"]["search"]["SCANNING"]} [lgreen]{i}')
@@ -58,7 +58,7 @@ def search_command(data):
                                                                                             ).replace('[1]', i)
                 paint(f'\n    {language["script"]["PREFIX"]}{message_found_ips}')
 
-        if len(server_list) == 0:
+        if not server_list:
             paint(f'\n    {language["script"]["PREFIX"]}{language["commands"]["search"]["SERVERS_NOT_FOUND"]} [lwhite]([lgreen]{all_data[:-1]}[lwhite])')
             return
 

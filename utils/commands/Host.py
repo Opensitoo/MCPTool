@@ -48,17 +48,17 @@ def host_command(hostname, ports, scan_method, bot, proxy=None):
         if not nodes:
             paint(f'\n    {language["commands"]["host"]["NODES_NOT_AVAILABLE"]}')
             return
-        
+
         scan_method = get_scan_method(scan_method)
         hostname = hostname.replace('.json', '')
         bot = get_bot_argument(bot)
         logs.create(hostname, ports, scan_method)
         paint(f'\n    {language["script"]["PREFIX"]}{language["commands"]["host"]["FOUND_NODES"].replace("[0]", str(len(nodes))).replace("[1]", hostname.capitalize())}')
-                
+
         for node in nodes:
             date = datetime.now()
             node_number += 1
-            scan_file = f'temp_scan_{str(date.day)}-{str(date.month)}-{str(date.year)}_{str(date.hour)}.{str(date.minute)}.{str(date.second)}.txt'  # Text scan_file 
+            scan_file = f'temp_scan_{date.day}-{date.month}-{date.year}_{date.hour}.{date.minute}.{date.second}.txt'
             paint(f'\n    {language["script"]["PREFIX"]}{language["commands"]["host"]["SCANNING"].replace("[0]", str(node_number)).replace("[1]", hostname.capitalize()).replace("[2]", node)}')
 
             if scan_method == 'nmap':
@@ -102,14 +102,14 @@ def host_command(hostname, ports, scan_method, bot, proxy=None):
             paint(f'\n    {language["script"]["PREFIX"]}{language["commands"]["host"]["FINISHED_SCAN_1"].replace("[0]", str(hostname)).replace("[1]", str(servers_found))}')
 
         alert('Alert-0')
-    
+
     except KeyboardInterrupt:
         try:
             os.remove(scan_file)
 
         except FileNotFoundError:
             pass
-        
+
         return
 
     

@@ -11,7 +11,4 @@ def check_scan_method(method):
 
     methods = ['nmap', 'qubo', 'quboscanner', '0', '1']
 
-    if method in methods:
-        return True
-
-    return False
+    return method in methods

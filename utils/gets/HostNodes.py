@@ -32,8 +32,5 @@ def get_host_nodes(hostname):
         except (socket.gaierror, socket.timeout):
             pass
 
-    if len(valid_nodes) == 0:
-        return False
-    
-    return valid_nodes
+    return False if not valid_nodes else valid_nodes
 

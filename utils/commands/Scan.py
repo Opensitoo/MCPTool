@@ -36,7 +36,7 @@ def scan_command(target, ports, scan_method, bot, proxy=None):
     date = datetime.now()
     timed_out_servers_found = 0
     servers_found = 0
-    scan_file = f'temp_scan_{str(date.day)}-{str(date.month)}-{str(date.year)}_{str(date.hour)}.{str(date.minute)}.{str(date.second)}.txt'  # Text scan_file 
+    scan_file = f'temp_scan_{date.day}-{date.month}-{date.year}_{date.hour}.{date.minute}.{date.second}.txt'
 
     try:
         scan_method = get_scan_method(scan_method)  # Get the scan method
@@ -47,7 +47,7 @@ def scan_command(target, ports, scan_method, bot, proxy=None):
 
         else:
             paint(f'\n    {language["script"]["PREFIX"]}{language["commands"]["scan"]["SCANNING_1"].replace("[0]", target)}')
-        
+
         if scan_method == 'nmap':
             ip_list = nmap(target, ports, scan_file)
 
@@ -87,7 +87,7 @@ def scan_command(target, ports, scan_method, bot, proxy=None):
 
         alert('Alert-0')
         os.remove(scan_file)
-            
+
     except KeyboardInterrupt:
         try:
             os.remove(scan_file)

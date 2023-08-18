@@ -14,7 +14,7 @@ def print_banner(name, *arguments):
     :param *arguments: Optional arguments
     """
 
-    if not 'discord' in name and not 'help' in name:
+    if 'discord' not in name and 'help' not in name:
         subprocess.run('cls || clear', shell=True)
 
     file = f'utils/banners/banners/{name}.txt'

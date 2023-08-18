@@ -74,24 +74,19 @@ def rcon_command(server, password_file, delay=None):
                 if password_found:
                     pwd_found = pwd_found.replace('[0]', password)
                     print_banner('rcon', title, target, pwd_file, pwd_found)
-                    alert('Alert-0')
-                    _ = readchar.readkey()
-                    subprocess.run('cls || clear', shell=True)
-                    print_banner('main', message1, message2, message3, message4)
-
                 else:
                     print_banner('rcon', title, target, pwd_file, pwd_not_found)
-                    alert('Alert-0')
-                    _ = readchar.readkey()
-                    subprocess.run('cls || clear', shell=True)
-                    print_banner('main', message1, message2, message3, message4)
+                alert('Alert-0')
+                _ = readchar.readkey()
+                subprocess.run('cls || clear', shell=True)
+                print_banner('main', message1, message2, message3, message4)
 
                 break
 
             for password in passwords:
                 password = password.replace('\n', '')
                 print_banner('rcon', title, target, pwd_file, trying_password.replace('[0]', password))
-                
+
                 if delay is not None:
                     try:
                         time.sleep(int(delay))

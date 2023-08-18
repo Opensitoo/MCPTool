@@ -9,11 +9,4 @@ def check_domain(server):
     :return: Returns true if the server is a domain, false if it is an IP address.
     """
 
-    for i in server:
-        if i.isdigit() or i == ':' or i == '.':
-            continue
-
-        else:
-            return True
-
-    return False
+    return any(not i.isdigit() and i != ':' and i != '.' for i in server)

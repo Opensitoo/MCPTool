@@ -45,11 +45,7 @@ def check_proxy_argument(number, arguments):
     try:
         arguments[number]
 
-        if check_ip_port(arguments[number]):
-            return True
-
-        return False
-    
+        return bool(check_ip_port(arguments[number]))
     except IndexError:
         return None
     
@@ -99,7 +95,7 @@ def check_command_arguments(command, arguments):
             paint(f'\n    {language["commands"]["search"]["MISSING_ARGUMENT_1"]}')
             paint(f'\n    {language["commands"]["USAGE"]}{language["commands"]["search"]["USAGE"]}')
             return False
-        
+
     if command == 'scan':
         if missing_argument(1, arguments):
             paint(f'\n    {language["commands"]["scan"]["MISSING_ARGUMENT_1"]}')
@@ -126,26 +122,23 @@ def check_command_arguments(command, arguments):
                 paint(f'\n    {language["commands"]["scan"]["FILE_NOT_FOUND"].replace("[0]", arguments[1])}')
                 return False
 
-        else:
-            if '-' in arguments[1] or '*' in arguments[1]:
-                if not check_iprange(arguments[1]):
-                    paint(f'\n    {language["commands"]["scan"]["INVALID_IP_RANGE"]}')
-                    return False
+        elif '-' in arguments[1] or '*' in arguments[1]:
+            if not check_iprange(arguments[1]):
+                paint(f'\n    {language["commands"]["scan"]["INVALID_IP_RANGE"]}')
+                return False
 
-            else:
-                if not check_ip(arguments[1]):
-                    paint(f'\n    {language["commands"]["scan"]["INVALID_IP"]}')
-                    return False
+        elif not check_ip(arguments[1]):
+            paint(f'\n    {language["commands"]["scan"]["INVALID_IP"]}')
+            return False
 
         if ',' in arguments[2] or '-' in arguments[2]:
             if not check_port_range(arguments[2]):
                 paint(f'\n    {language["commands"]["scan"]["INVALID_PORTS"]}')
                 return False
 
-        else:
-            if not check_port(arguments[2]):
-                paint(f'\n    {language["commands"]["scan"]["INVALID_PORTS"]}')
-                return False
+        elif not check_port(arguments[2]):
+            paint(f'\n    {language["commands"]["scan"]["INVALID_PORTS"]}')
+            return False
 
         if not check_scan_method(arguments[3]):
             paint(f'\n    {language["commands"]["scan"]["INVALID_SCAN_METHOD"]}')
@@ -154,11 +147,11 @@ def check_command_arguments(command, arguments):
         if not check_bot_argument(arguments[4]):
             paint(f'\n    {language["commands"]["scan"]["INVALID_BOT_ARGUMENT"]}')
             return False
-        
+
         if check_proxy_argument(5, arguments) is False:
             paint(f'\n    {language["commands"]["scan"]["INVALID_PROXY"]}')
             return False
-        
+
     elif command == 'host':
         if missing_argument(1, arguments):
             paint(f'\n    {language["commands"]["host"]["MISSING_ARGUMENT_1"]}')
@@ -179,7 +172,7 @@ def check_command_arguments(command, arguments):
             paint(f'\n    {language["commands"]["host"]["MISSING_ARGUMENT_4"]}')
             paint(f'\n    {language["commands"]["USAGE"]}{language["commands"]["host"]["USAGE"]}')
             return False
-        
+
         if not str(arguments[1]).endswith('.json'):
             arguments[1] = f'{str(arguments[1])}.json'
 
@@ -192,10 +185,9 @@ def check_command_arguments(command, arguments):
                 paint(f'\n    {language["commands"]["host"]["INVALID_PORTS"]}')
                 return False
 
-        else:
-            if not check_port(arguments[2]):
-                paint(f'\n    {language["commands"]["host"]["INVALID_PORTS"]}')
-                return False
+        elif not check_port(arguments[2]):
+            paint(f'\n    {language["commands"]["host"]["INVALID_PORTS"]}')
+            return False
 
         if not check_scan_method(arguments[3]):
             paint(f'\n    {language["commands"]["host"]["INVALID_SCAN_METHOD"]}')
@@ -204,34 +196,34 @@ def check_command_arguments(command, arguments):
         if not check_bot_argument(arguments[4]):
             paint(f'\n    {language["commands"]["host"]["INVALID_BOT_ARGUMENT"]}')
             return False
-        
+
         if check_proxy_argument(5, arguments) is False:
             paint(f'\n    {language["commands"]["host"]["INVALID_PROXY"]}')
             return False
-        
+
     if command == 'checker':
         if missing_argument(1, arguments):
             paint(f'\n    {language["commands"]["checker"]["MISSING_ARGUMENT_1"]}')
             paint(f'\n    {language["commands"]["USAGE"]}{language["commands"]["checker"]["USAGE"]}')
             return False
-        
+
         if missing_argument(2, arguments):
             paint(f'\n    {language["commands"]["checker"]["MISSING_ARGUMENT_2"]}')
             paint(f'\n    {language["commands"]["USAGE"]}{language["commands"]["checker"]["USAGE"]}')
             return False
-        
+
         if not os.path.exists(arguments[1]):
             paint(f'\n    {language["commands"]["checker"]["FILE_NOT_FOUND"].replace("[0]", arguments[1])}')
             return False
-        
+
         if not check_bot_argument(arguments[2]):
             paint(f'\n    {language["commands"]["checker"]["INVALID_BOT_ARGUMENT"]}')
             return False
-        
+
         if check_proxy_argument(3, arguments) is False:
             paint(f'\n    {language["commands"]["checker"]["INVALID_PROXY"]}')
             return False
-        
+
     if command == 'listening':
         if missing_argument(1, arguments):
             paint(f'\n    {language["commands"]["listening"]["MISSING_ARGUMENT_1"]}')
@@ -249,18 +241,18 @@ def check_command_arguments(command, arguments):
             paint(f'\n    {language["commands"]["poisoning"]["MISSING_ARGUMENT_1"]}')
             paint(f'\n    {language["commands"]["USAGE"]}{language["commands"]["poisoning"]["USAGE"]}')
             return False
-        
+
     if command == 'connect':
         if missing_argument(1, arguments):
             paint(f'\n    {language["commands"]["connect"]["MISSING_ARGUMENT_1"]}')
             paint(f'\n    {language["commands"]["USAGE"]}{language["commands"]["connect"]["USAGE"]}')
             return False
-        
+
         if missing_argument(2, arguments):
             paint(f'\n    {language["commands"]["connect"]["MISSING_ARGUMENT_2"]}')
             paint(f'\n    {language["commands"]["USAGE"]}{language["commands"]["connect"]["USAGE"]}')
             return False
-        
+
         if missing_argument(3, arguments):
             paint(f'\n    {language["commands"]["connect"]["MISSING_ARGUMENT_3"]}')
             paint(f'\n    {language["commands"]["USAGE"]}{language["commands"]["connect"]["USAGE"]}')
@@ -307,7 +299,7 @@ def check_command_arguments(command, arguments):
         if not os.path.exists(arguments[2]):
             paint(f'\n    {language["commands"]["rcon"]["FILE_NOT_FOUND"].replace("[0]", arguments[2])}')
             return False
-    
+
     if command == 'authme':
         if missing_argument(1, arguments):
             paint(f'\n    {language["commands"]["authme"]["MISSING_ARGUMENT_1"]}')
@@ -332,7 +324,7 @@ def check_command_arguments(command, arguments):
         if not check_ip_port(arguments[1]):
             paint(f'\n    {language["commands"]["authme"]["INVALID_SERVER"]}')
             return False
-        
+
         if not check_minecraft_version(arguments[3]):
             paint(f'\n    {language["commands"]["authme"]["INVALID_VERSION"]}')
             return False
@@ -340,11 +332,11 @@ def check_command_arguments(command, arguments):
         if not os.path.exists(arguments[4]):
             paint(f'\n    {language["commands"]["authme"]["FILE_NOT_FOUND"].replace("[0]", arguments[2])}')
             return False
-        
+
         if check_proxy_argument(5, arguments) is False:
             paint(f'\n    {language["commands"]["authme"]["INVALID_PROXY"]}')
             return False
-        
+
     if command == 'kick':
         if missing_argument(1, arguments):
             paint(f'\n    {language["commands"]["kick"]["MISSING_ARGUMENT_1"]}')
@@ -360,16 +352,16 @@ def check_command_arguments(command, arguments):
             paint(f'\n    {language["commands"]["kick"]["MISSING_ARGUMENT_3"]}')
             paint(f'\n    {language["commands"]["USAGE"]}{language["commands"]["kick"]["USAGE"]}')
             return False
-        
+
         if missing_argument(4, arguments):
             paint(f'\n    {language["commands"]["kick"]["MISSING_ARGUMENT_4"]}')
             paint(f'\n    {language["commands"]["USAGE"]}{language["commands"]["kick"]["USAGE"]}')
             return False
-        
+
         if not check_ip_port(arguments[1]):
             paint(f'\n    {language["commands"]["kick"]["INVALID_SERVER"]}')
             return False
-        
+
         if not check_minecraft_version(arguments[3]):
             paint(f'\n    {language["commands"]["kick"]["INVALID_VERSION"]}')
             return False
@@ -377,11 +369,11 @@ def check_command_arguments(command, arguments):
         if not check_loop_argument(arguments[4]):
             paint(f'\n    {language["commands"]["kick"]["INVALID_LOOP_ARGUMENT"]}')
             return False
-        
+
         if check_proxy_argument(5, arguments) is False:
             paint(f'\n    {language["commands"]["kick"]["INVALID_PROXY"]}')
             return False
-        
+
     if command == 'kickall':
         if missing_argument(1, arguments):
             paint(f'\n    {language["commands"]["kickall"]["MISSING_ARGUMENT_1"]}')
@@ -397,23 +389,23 @@ def check_command_arguments(command, arguments):
             paint(f'\n    {language["commands"]["kickall"]["MISSING_ARGUMENT_3"]}')
             paint(f'\n    {language["commands"]["USAGE"]}{language["commands"]["kickall"]["USAGE"]}')
             return False
-        
+
         if not check_ip_port(arguments[1]):
             paint(f'\n    {language["commands"]["kickall"]["INVALID_SERVER"]}')
             return False
-        
+
         if not check_minecraft_version(arguments[2]):
             paint(f'\n    {language["commands"]["kickall"]["INVALID_VERSION"]}')
             return False
-        
+
         if not check_loop_argument(arguments[3]):
             paint(f'\n    {language["commands"]["kickall"]["INVALID_LOOP_ARGUMENT"]}')
             return False
-        
+
         if check_proxy_argument(4, arguments) is False:
             paint(f'\n    {language["commands"]["kickall"]["INVALID_PROXY"]}')
             return False
-        
+
     if command == 'sendcmd':
         if missing_argument(1, arguments):
             paint(f'\n    {language["commands"]["sendcommand"]["MISSING_ARGUMENT_1"]}')
@@ -434,29 +426,29 @@ def check_command_arguments(command, arguments):
             paint(f'\n    {language["commands"]["sendcommand"]["MISSING_ARGUMENT_4"]}')
             paint(f'\n    {language["commands"]["USAGE"]}{language["commands"]["sendcommand"]["USAGE"]}')
             return False
-        
+
         if not check_ip_port(arguments[1]):
             paint(f'\n    {language["commands"]["sendcommand"]["INVALID_SERVER"]}')
             return False
-        
+
         if not check_minecraft_version(arguments[3]):
             paint(f'\n    {language["commands"]["sendcommand"]["INVALID_VERSION"]}')
             return False
-        
+
         if not os.path.exists(arguments[4]):
             paint(f'\n    {language["commands"]["sendcommand"]["FILE_NOT_FOUND"].replace("[0]", arguments[2])}')
             return False
-        
+
         if check_proxy_argument(5, arguments) is False:
             paint(f'\n    {language["commands"]["sendcommand"]["INVALID_PROXY"]}')
             return False
-        
+
     if command == 'language':
         if missing_argument(1, arguments):
             paint(f'\n    {language["commands"]["language"]["MISSING_ARGUMENT_1"]}')
             paint(f'\n    {language["commands"]["USAGE"]}{language["commands"]["language"]["USAGE"]}')
             return False
-        
+
         if not check_language(arguments[1]):
             paint(f'\n    {language["commands"]["language"]["INVALID_LANGUAGE"]}')
             return False

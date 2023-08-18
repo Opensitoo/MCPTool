@@ -27,15 +27,14 @@ def check_port_range(portrange):
                 if int(ports[0]) > int(ports[1]):
                     return False
 
-            else:
-                if not check_port(ports):
-                    return False
+            elif not check_port(ports):
+                return False
 
         return True
 
     else:
         portrange = portrange.split('-')
-        
+
         if check_port(portrange[0]):
             if check_port(portrange[1]):
                 if int(portrange[0]) < int(portrange[1]):

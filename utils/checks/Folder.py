@@ -11,8 +11,5 @@ def check_folders(*folders):
     """
 
     for folder in folders:
-        if os.path.isdir(folder):
-            pass
-
-        else:
+        if not os.path.isdir(folder):
             os.mkdir(folder)

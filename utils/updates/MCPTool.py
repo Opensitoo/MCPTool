@@ -38,9 +38,7 @@ def update_mcptool():
     try:
         print_banner('update', title, checking_updates, '', '', '', '')
         time.sleep(1)
-        update = u.check_mcptool_updates()
-
-        if update:
+        if update := u.check_mcptool_updates():
             print_banner('update', title, checking_updates, new_version, '', '', '')
             time.sleep(1)
             print_banner('update', title, checking_updates, new_version, downloading, '', '')
@@ -61,7 +59,7 @@ def update_mcptool():
 
                     if os.path.exists('ngrok.exe'):
                         shutil.copy('ngrok.exe', f'../New-MCPTool/{folder}/ngrok.exe')
-                    
+
                     new_script = True
                     subprocess.run(f'cd ../New-MCPTool/{folder}/ && {settings["PYTHON_COMMAND"]} main.py', shell=True)
                     sys.exit()

@@ -16,8 +16,4 @@ def get_ip_port(server):
 
     data = mcsrvstatus(server)
 
-    if data is not None:
-        return data[0], data[1]
-
-    else:
-        return None, None
+    return (data[0], data[1]) if data is not None else (None, None)

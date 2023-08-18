@@ -15,7 +15,4 @@ def check_minecraft_version(version):
     with open('utils/minecraftserver/Versions.json', 'r') as f:
         js = json.loads(f.read())
 
-    if version in js['VERSIONS']:
-        return True
-
-    return False
+    return version in js['VERSIONS']

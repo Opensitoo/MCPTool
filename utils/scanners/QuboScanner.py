@@ -23,8 +23,6 @@ def quboscanner(target, ports):
 
     try:
         ip_list = []
-        scan_file = None
-
         check_folders('utils/scanners/quboscanner/outputs')
         file_list = os.listdir('utils/scanners/quboscanner/outputs')  # Save current quboscanner outputs to a list
         command = settings['QUBO_COMMAND'].replace('[0]', target
@@ -35,11 +33,14 @@ def quboscanner(target, ports):
         subprocess.run(f'cd utils/scanners/quboscanner && {command}', shell=True)
         new_file_list = os.listdir('utils/scanners/quboscanner/outputs')  # Save current quboscanner outputs back to another list
 
-        for file in new_file_list:
-            if file not in file_list:
-                scan_file = f'utils/scanners/quboscanner/outputs/{file}'
-                break
-        
+        scan_file = next(
+            (
+                f'utils/scanners/quboscanner/outputs/{file}'
+                for file in new_file_list
+                if file not in file_list
+            ),
+            None,
+        )
         if scan_file is None:
             return ip_list
 
@@ -52,7 +53,7 @@ def quboscanner(target, ports):
                     ip_list.append(ip)
 
         return ip_list
-    
+
     except KeyboardInterrupt:
         if scan_file is not None:
             try:
